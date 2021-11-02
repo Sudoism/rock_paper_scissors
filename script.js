@@ -36,6 +36,31 @@ function playerPlay(){
 }
 
 function playRound(playerSelection, computerSelection){
+    if (playerSelection === computerSelection){
+        return "its a draw!"
+    }
 
-
+    switch(playerSelection) {
+        case "rock":
+            switch(computerSelection) {
+                case "scissors":
+                    return "You win! Rock beat scissors.";
+                case "paper":
+                    return "You loose! Paper beat rock.";
+            }
+        case "scissors":
+            switch(computerSelection) {
+                case "paper":
+                    return "You win! Scissors beats paper.";
+                case "rock":
+                    return "You loose! Rock beats scissors.";
+            }
+        case "paper":
+            switch(computerSelection) {
+                case "rock":
+                    return "You win! Paper beats rock.";
+                case "scissors":
+                    return "You loose! Scissors beats paper.";
+            }
+    }
 }
