@@ -11,3 +11,31 @@ function computerPlay(){
             return "scissors";
     }
 }
+
+function playerPlay(){
+     
+    let keepAsking = true;
+
+    while(keepAsking){
+        let play = prompt().toLowerCase();
+
+        switch(play) {
+            case "rock":
+                keepAsking = false;
+                return "rock";
+            case "paper":
+                keepAsking = false;
+                return "paper";
+            case "scissors":
+                keepAsking = false;
+                return "scissors";
+            default: 
+                alert("invalid input");
+        }
+    }
+}
+
+function playRound(playerSelection, computerSelection){
+
+
+}
