@@ -17,7 +17,7 @@ function playerPlay(){
     let keepAsking = true;
 
     while(keepAsking){
-        let play = prompt().toLowerCase();
+        let play = prompt("Choose rock, paper or scissors").toLowerCase();
 
         switch(play) {
             case "rock":
@@ -37,30 +37,74 @@ function playerPlay(){
 
 function playRound(playerSelection, computerSelection){
     if (playerSelection === computerSelection){
-        return "its a draw!"
+        return "draw"
     }
 
     switch(playerSelection) {
         case "rock":
             switch(computerSelection) {
                 case "scissors":
-                    return "You win! Rock beat scissors.";
+                    return "win";
                 case "paper":
-                    return "You loose! Paper beat rock.";
+                    return "loose";
             }
         case "scissors":
             switch(computerSelection) {
                 case "paper":
-                    return "You win! Scissors beats paper.";
+                    return "win";
                 case "rock":
-                    return "You loose! Rock beats scissors.";
+                    return "loose";
             }
         case "paper":
             switch(computerSelection) {
                 case "rock":
-                    return "You win! Paper beats rock.";
+                    return "win";
                 case "scissors":
-                    return "You loose! Scissors beats paper.";
+                    return "loose";
             }
     }
 }
+
+function game() {
+    const rounds = 5;
+    let roundsCounter = 0;
+    let computerScore = 0;
+    let playerScore = 0;
+    let keepPlaying = true;
+
+    while(keepPlaying){
+        let player = playerPlay();
+        let computer = computerPlay();
+        alert("you choose " + player + " and computer chose " + computer);
+        let result = playRound(player, computer)
+
+        switch(result){
+            case "win":
+                alert("you win!")
+                playerScore += 1;
+                break;
+            case "loose":
+                alert("you loose!")
+                computerScore += 1;
+                break;
+            default:
+                alert("its a draw")
+                break;
+
+        }
+
+        roundsCounter += 1;
+
+        alert("Rounds played: " + roundsCounter + ". Your score is " + playerScore + " and computers score is " + computerScore + ".")
+
+        if(roundsCounter === rounds){
+            keepPlaying = false;
+            alert("Game over")
+            break;
+        }
+
+
+    }
+}
+
+game();
