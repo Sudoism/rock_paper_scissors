@@ -17,7 +17,7 @@ function playerPlay(){
     let keepAsking = true;
 
     while(keepAsking){
-        let play = prompt("Choose rock, paper or scissors").toLowerCase();
+        let play = prompt("Choose rock, paper or scissorsƒ").toLowerCase();
 
         switch(play) {
             case "rock":
@@ -95,7 +95,8 @@ function game() {
 
         roundsCounter += 1;
 
-        alert("Rounds played: " + roundsCounter + ". Your score is " + playerScore + " and computers score is " + computerScore + ".")
+        alert("Rounds played: " + roundsCounter + ". Your score is " + playerScore 
+            + " and computers score is " + computerScore + ".");
 
         if(roundsCounter === rounds){
             keepPlaying = false;
