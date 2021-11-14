@@ -108,4 +108,19 @@ function game() {
     }
 }
 
-game();
+const rock = document.querySelector(".rock");
+const paper = document.querySelector(".paper");
+const scissors = document.querySelector(".scissors");
+
+rock.addEventListener('click', () => {
+    console.log(playRound("rock", computerPlay()));
+});
+
+paper.addEventListener('click', () => {
+    console.log(playRound("paper", computerPlay()));
+});
+
+scissors.addEventListener('click', () => {
+    console.log(playRound("scissors", computerPlay()));
+});
+
