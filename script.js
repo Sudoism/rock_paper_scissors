@@ -44,23 +44,23 @@ function playRound(playerSelection, computerSelection){
         case "rock":
             switch(computerSelection) {
                 case "scissors":
-                    return "win";
+                    return "You played rock, Computer played scissors. Victory!";
                 case "paper":
-                    return "loose";
+                    return "You played rock, Computer played paper. Defeat!";
             }
         case "scissors":
             switch(computerSelection) {
                 case "paper":
-                    return "win";
+                    return "You played scissors, Computer played paper. Victory!";
                 case "rock":
-                    return "loose";
+                    return "You played scissors, Computer played rock. defeat!";
             }
         case "paper":
             switch(computerSelection) {
                 case "rock":
-                    return "win";
+                    return "You played paper, Computer played rock. Victory!";
                 case "scissors":
-                    return "loose";
+                    return "You played paper, Computer played scissors. Defeat!";
             }
     }
 }
@@ -108,19 +108,24 @@ function game() {
     }
 }
 
+function printResult(result){
+    const resultDiv = document.querySelector(".result");
+    resultDiv.textContent = `${result}`
+}
+
 const rock = document.querySelector(".rock");
 const paper = document.querySelector(".paper");
 const scissors = document.querySelector(".scissors");
 
 rock.addEventListener('click', () => {
-    console.log(playRound("rock", computerPlay()));
+    printResult(playRound("rock", computerPlay()));
 });
 
 paper.addEventListener('click', () => {
-    console.log(playRound("paper", computerPlay()));
+    printResult(playRound("paper", computerPlay()));
 });
 
 scissors.addEventListener('click', () => {
-    console.log(playRound("scissors", computerPlay()));
+    printResult(playRound("scissors", computerPlay()));
 });
 

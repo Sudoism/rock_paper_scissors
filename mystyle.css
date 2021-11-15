@@ -1,0 +1,16 @@
+.selection {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+input{
+    width:100%;
+    max-width:300px;
+}
+
+.result{
+    display: flex;
+    justify-content: center;
+}
