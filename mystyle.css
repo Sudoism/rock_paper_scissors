@@ -7,10 +7,16 @@
 
 input{
     width:100%;
-    max-width:300px;
+    max-width:250px;
 }
 
 .result{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+
+.resultTotal{
     display: flex;
     justify-content: center;
 }

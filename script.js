@@ -1,5 +1,4 @@
 function computerPlay(){
-
     let choice = Math.floor(Math.random()*3+1);
 
     switch(choice) {
@@ -12,105 +11,90 @@ function computerPlay(){
     }
 }
 
-function playerPlay(){
-     
-    let keepAsking = true;
-
-    while(keepAsking){
-        let play = prompt("Choose rock, paper or scissorsƒ").toLowerCase();
-
-        switch(play) {
-            case "rock":
-                keepAsking = false;
-                return "rock";
-            case "paper":
-                keepAsking = false;
-                return "paper";
-            case "scissors":
-                keepAsking = false;
-                return "scissors";
-            default: 
-                alert("invalid input");
-        }
-    }
-}
-
 function playRound(playerSelection, computerSelection){
+
+    let roundResult = "";
+
     if (playerSelection === computerSelection){
-        return "draw"
+        roundResult = "Draw";
     }
 
     switch(playerSelection) {
         case "rock":
             switch(computerSelection) {
                 case "scissors":
-                    return "You played rock, Computer played scissors. Victory!";
+                    roundResult = "Victory";
+                    break;
                 case "paper":
-                    return "You played rock, Computer played paper. Defeat!";
+                    roundResult = "Defeat";
+                    break;
             }
         case "scissors":
             switch(computerSelection) {
                 case "paper":
-                    return "You played scissors, Computer played paper. Victory!";
+                    roundResult =  "Victory";
+                    break;
                 case "rock":
-                    return "You played scissors, Computer played rock. defeat!";
+                    roundResult =  "Defeat";
+                    break;
             }
         case "paper":
             switch(computerSelection) {
                 case "rock":
-                    return "You played paper, Computer played rock. Victory!";
+                    roundResult =  "Victory";
+                    break;
                 case "scissors":
-                    return "You played paper, Computer played scissors. Defeat!";
+                    roundResult =  "Defeat";
+                    break;
             }
     }
+    printRoundResult(playerSelection + " vs " + computerSelection + ". " + roundResult +"!");
+    return roundResult;
 }
 
-function game() {
-    const rounds = 5;
-    let roundsCounter = 0;
-    let computerScore = 0;
-    let playerScore = 0;
-    let keepPlaying = true;
+const rounds = 5;
+let roundsCounter = 0;
+let computerScore = 0;
+let playerScore = 0;
 
-    while(keepPlaying){
-        let player = playerPlay();
-        let computer = computerPlay();
-        alert("you choose " + player + " and computer chose " + computer);
-        let result = playRound(player, computer)
+function resetGame() {
+    roundsCounter = 0;
+    computerScore = 0;
+    playerScore = 0;
+}
 
-        switch(result){
-            case "win":
-                alert("you win!")
-                playerScore += 1;
-                break;
-            case "loose":
-                alert("you loose!")
-                computerScore += 1;
-                break;
-            default:
-                alert("its a draw")
-                break;
 
-        }
+function updateRound(player) {
+    let computer = computerPlay();
+    let result = playRound(player, computer)
 
-        roundsCounter += 1;
-
-        alert("Rounds played: " + roundsCounter + ". Your score is " + playerScore 
-            + " and computers score is " + computerScore + ".");
-
-        if(roundsCounter === rounds){
-            keepPlaying = false;
-            alert("Game over")
+    switch(result){
+        case "Victory":
+            playerScore += 1;
             break;
-        }
+        case "Defeat":
+            computerScore += 1;
+            break;
+        default:
+            break;
+    }
 
+    roundsCounter += 1;
+    printGameResult(playerScore, computerScore, roundsCounter)
 
+    if (roundsCounter === rounds) {
+        resetGame();
     }
 }
 
-function printResult(result){
+function printRoundResult(result){
     const resultDiv = document.querySelector(".result");
     resultDiv.textContent = `${result}`
+}
+
+function printGameResult(playerScore, computerScore, roundsCounter){
+    const resultTotalDiv = document.querySelector(".resultTotal");
+    resultTotalDiv.textContent = `you: ${playerScore} computer: ${computerScore} round ${roundsCounter}`
 }
 
 const rock = document.querySelector(".rock");
@@ -118,14 +102,14 @@ const paper = document.querySelector(".paper");
 const scissors = document.querySelector(".scissors");
 
 rock.addEventListener('click', () => {
-    printResult(playRound("rock", computerPlay()));
+    updateRound("rock", computerPlay());
 });
 
 paper.addEventListener('click', () => {
-    printResult(playRound("paper", computerPlay()));
+    updateRound("paper", computerPlay());
 });
 
 scissors.addEventListener('click', () => {
-    printResult(playRound("scissors", computerPlay()));
+    updateRound("scissors", computerPlay());
 });
 
