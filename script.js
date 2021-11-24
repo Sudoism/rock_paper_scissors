@@ -11,17 +11,14 @@ function computerPlay(){
     }
 }
 
-function playRound(playerSelection, computerSelection){
-
-    let roundResult = "";
-
-    if (playerSelection === computerSelection){
+function playRound(playerOneSelection, playerTwoSelection){
+    if (playerOneSelection === playerTwoSelection){
         roundResult = "Draw";
     }
 
-    switch(playerSelection) {
+    switch(playerOneSelection) {
         case "rock":
-            switch(computerSelection) {
+            switch(playerTwoSelection) {
                 case "scissors":
                     roundResult = "Victory";
                     break;
@@ -29,8 +26,9 @@ function playRound(playerSelection, computerSelection){
                     roundResult = "Defeat";
                     break;
             }
+            break;
         case "scissors":
-            switch(computerSelection) {
+            switch(playerTwoSelection) {
                 case "paper":
                     roundResult =  "Victory";
                     break;
@@ -38,8 +36,9 @@ function playRound(playerSelection, computerSelection){
                     roundResult =  "Defeat";
                     break;
             }
+            break;
         case "paper":
-            switch(computerSelection) {
+            switch(playerTwoSelection) {
                 case "rock":
                     roundResult =  "Victory";
                     break;
@@ -47,9 +46,41 @@ function playRound(playerSelection, computerSelection){
                     roundResult =  "Defeat";
                     break;
             }
+            break;
     }
-    printRoundResult(playerSelection + " vs " + computerSelection + ". " + roundResult +"!");
     return roundResult;
+}
+
+//Determines winner of round, keeps track of rounds and returns a printable message of game status 
+function playGame(playerSelection){
+
+    if (roundsCounter === 0 ){
+        printGameResult("");
+    }
+    let computerSelection = computerPlay();
+
+    let roundResult = playRound(playerSelection, computerSelection);
+    roundsCounter += 1;
+    if (roundResult === "Victory") {
+        playerScore += 1;
+    } else if (roundResult === "Defeat") {
+        computerScore +=1;
+    } 
+
+    result = `${playerSelection} vs ${computerSelection}. ${roundResult}! you: ${playerScore} computer: ${computerScore} round ${roundsCounter}`;
+    printRoundResult(result);
+
+    if (roundsCounter === rounds) {
+        if(computerScore === playerScore) {
+            gameResult = "The Game is a Tie..";
+        }else if (computerScore > playerScore) {
+            gameResult = "The Game is Lost." 
+        } else {
+            gameResult = "The Game is Won!"
+        }
+        printGameResult(gameResult);
+        resetGame();
+    }
 }
 
 const rounds = 5;
@@ -63,38 +94,14 @@ function resetGame() {
     playerScore = 0;
 }
 
-
-function updateRound(player) {
-    let computer = computerPlay();
-    let result = playRound(player, computer)
-
-    switch(result){
-        case "Victory":
-            playerScore += 1;
-            break;
-        case "Defeat":
-            computerScore += 1;
-            break;
-        default:
-            break;
-    }
-
-    roundsCounter += 1;
-    printGameResult(playerScore, computerScore, roundsCounter)
-
-    if (roundsCounter === rounds) {
-        resetGame();
-    }
+function printRoundResult(roundResult){
+    const roundResultDiv = document.querySelector(".roundResult");
+    roundResultDiv.textContent = `${roundResult}`
 }
 
-function printRoundResult(result){
-    const resultDiv = document.querySelector(".result");
-    resultDiv.textContent = `${result}`
-}
-
-function printGameResult(playerScore, computerScore, roundsCounter){
-    const resultTotalDiv = document.querySelector(".resultTotal");
-    resultTotalDiv.textContent = `you: ${playerScore} computer: ${computerScore} round ${roundsCounter}`
+function printGameResult(gameResult){
+    const gameResultDiv = document.querySelector(".gameResult");
+    gameResultDiv.textContent = `${gameResult}`
 }
 
 const rock = document.querySelector(".rock");
@@ -102,14 +109,14 @@ const paper = document.querySelector(".paper");
 const scissors = document.querySelector(".scissors");
 
 rock.addEventListener('click', () => {
-    updateRound("rock", computerPlay());
+    playGame("rock");
 });
 
 paper.addEventListener('click', () => {
-    updateRound("paper", computerPlay());
+    playGame("paper");
 });
 
 scissors.addEventListener('click', () => {
-    updateRound("scissors", computerPlay());
+    playGame("scissors");
 });
 

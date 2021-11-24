@@ -10,13 +10,13 @@ input{
     max-width:250px;
 }
 
-.result{
+.roundResult{
     display: flex;
     justify-content: center;
     padding-bottom: 10px;
 }
 
-.resultTotal{
+.gameResult{
     display: flex;
     justify-content: center;
 }
